@@ -19,6 +19,5 @@ This is my first project using Angular! :)
 8.The user can close the image dialog.
 
 9.The app has a responsive layout with appropriate styles for different screen sizes.
-
 10. The app uses CSS classes and Angular directives to handle events and apply styles dynamically.
 
