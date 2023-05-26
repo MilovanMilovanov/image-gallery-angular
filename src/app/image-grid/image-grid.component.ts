@@ -56,7 +56,7 @@ export class ImageGridComponent implements OnInit, AfterViewInit {
   imageDialogOpen = false;
 
   @ViewChildren('labelsAndInputsForSearch')
-  inputSearches!: QueryList<ElementRef<HTMLInputElement | HTMLLabelElement>>;
+  labelsAndInputs!: QueryList<ElementRef<HTMLInputElement | HTMLLabelElement>>;
 
   constructor(private http: HttpClient, private renderer: Renderer2) {}
 
@@ -72,19 +72,19 @@ export class ImageGridComponent implements OnInit, AfterViewInit {
     let labelInputPair: ElementRef<HTMLLabelElement | HTMLInputElement>[] = [];
 
     if (category === 'nature') {
-      labelInputPair = this.inputSearches.filter(
+      labelInputPair = this.labelsAndInputs.filter(
         (element) =>
           element.nativeElement.id === 'labelSearchNature' ||
           element.nativeElement.id === 'inputSearchNature'
       );
     } else if (category === 'activities') {
-      labelInputPair = this.inputSearches.filter(
+      labelInputPair = this.labelsAndInputs.filter(
         (element) =>
           element.nativeElement.id === 'labelSearchActivities' ||
           element.nativeElement.id === 'inputSearchActivities'
       );
     } else {
-      labelInputPair = this.inputSearches.filter(
+      labelInputPair = this.labelsAndInputs.filter(
         (element) =>
           element.nativeElement.id === 'labelSearchAnimals' ||
           element.nativeElement.id === 'inputSearchAnimals'
@@ -172,7 +172,6 @@ export class ImageGridComponent implements OnInit, AfterViewInit {
 
     this.filteredImages[category] = this.categoryImages[category]?.filter(
       (image) => {
-        // Some of the titles from the API have spaces at the end
         const title = image.title.toLowerCase().trim();
         return title === searchTerm || title.split(' ').includes(searchTerm);
       }
