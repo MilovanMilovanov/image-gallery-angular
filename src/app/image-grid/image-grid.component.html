@@ -30,16 +30,19 @@
   <ng-container [ngSwitch]="activeTab">
     <section class="grid-container" *ngSwitchCase="'animals'">
       <div class="search-container">
-        <label for="animals-filter" #labelSearchAnimals
+        <label
+          id="labelSearchAnimals"
+          for="inputSearchAnimals"
+          #labelsAndInputsForSearch
           >{{ categoryNames[activeTab] }}
         </label>
         <input
           type="text"
-          id="animals-filter"
+          id="inputSearchAnimals"
           [(ngModel)]="searchTerms['animals']"
           placeholder="{{ placeholderText }}"
           (input)="filterImages('animals')"
-          #inputSearchAnimals
+          #labelsAndInputsForSearch
         />
       </div>
       <figure
@@ -59,16 +62,19 @@
 
     <div class="grid-container" *ngSwitchCase="'nature'">
       <div class="search-container">
-        <label for="nature-filter" #labelSearchNature
+        <label
+          id="labelSearchNature"
+          for="inputSearchNature"
+          #labelsAndInputsForSearch
           >{{ categoryNames[activeTab] }}
         </label>
         <input
           type="text"
-          id="nature-filter"
+          id="inputSearchNature"
           [(ngModel)]="searchTerms['nature']"
           placeholder="{{ placeholderText }}"
           (input)="filterImages('nature')"
-          #inputSearchNature
+          #labelsAndInputsForSearch
         />
       </div>
       <figure
@@ -87,16 +93,19 @@
 
     <div class="grid-container" *ngSwitchCase="'activities'">
       <div class="search-container">
-        <label for="activities-filter" #labelSearchActivities>{{
-          categoryNames[activeTab]
-        }}</label>
+        <label
+          id="labelSearchActivities"
+          for="inputSearchActivities"
+          #labelsAndInputsForSearch
+          >{{ categoryNames[activeTab] }}</label
+        >
         <input
           type="text"
-          id="activities-filter"
+          id="inputSearchActivities"
           [(ngModel)]="searchTerms['activities']"
           placeholder="{{ placeholderText }}"
           (input)="filterImages('activities')"
-          #inputSearchActivities
+          #labelsAndInputsForSearch
         />
       </div>
       <figure
