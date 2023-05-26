@@ -3,7 +3,8 @@ import {
   OnInit,
   Renderer2,
   ElementRef,
-  ViewChild,
+  ViewChildren,
+  QueryList,
   AfterViewInit,
 } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -28,18 +29,18 @@ interface CategoryImages {
   styleUrls: ['./image-grid.component.css'],
 })
 export class ImageGridComponent implements OnInit, AfterViewInit {
-  images: CategoryImages = {
+  categoryImages: CategoryImages = {
     animals: [],
     nature: [],
     activities: [],
+  };
+  filteredImages: CategoryImages = {
+    ...this.categoryImages,
   };
   searchTerms: SearchTerms = {
     animals: '',
     nature: '',
     activities: '',
-  };
-  filteredImages: CategoryImages = {
-    ...this.images,
   };
 
   categoryNames: SearchTerms = {
@@ -54,18 +55,8 @@ export class ImageGridComponent implements OnInit, AfterViewInit {
   selectedImage: any;
   imageDialogOpen = false;
 
-  @ViewChild('inputSearchAnimals')
-  inputSearchAnimals!: ElementRef<HTMLInputElement>;
-  @ViewChild('labelSearchAnimals')
-  labelSearchAnimals!: ElementRef<HTMLLabelElement>;
-  @ViewChild('inputSearchNature')
-  inputSearchNature!: ElementRef<HTMLInputElement>;
-  @ViewChild('labelSearchNature')
-  labelSearchNature!: ElementRef<HTMLLabelElement>;
-  @ViewChild('inputSearchActivities')
-  inputSearchActivities!: ElementRef<HTMLInputElement>;
-  @ViewChild('labelSearchActivities')
-  labelSearchActivities!: ElementRef<HTMLLabelElement>;
+  @ViewChildren('labelsAndInputsForSearch')
+  inputSearches!: QueryList<ElementRef<HTMLInputElement | HTMLLabelElement>>;
 
   constructor(private http: HttpClient, private renderer: Renderer2) {}
 
@@ -78,27 +69,37 @@ export class ImageGridComponent implements OnInit, AfterViewInit {
   }
 
   setupFocusEvents(category?: string): void {
-    let labelForInputSearch: HTMLLabelElement;
-    let inputSearch: HTMLInputElement;
+    let labelInputPair: ElementRef<HTMLLabelElement | HTMLInputElement>[] = [];
 
     if (category === 'nature') {
-      labelForInputSearch = this.labelSearchNature.nativeElement;
-      inputSearch = this.inputSearchNature.nativeElement;
+      labelInputPair = this.inputSearches.filter(
+        (element) =>
+          element.nativeElement.id === 'labelSearchNature' ||
+          element.nativeElement.id === 'inputSearchNature'
+      );
     } else if (category === 'activities') {
-      labelForInputSearch = this.labelSearchActivities.nativeElement;
-      inputSearch = this.inputSearchActivities.nativeElement;
+      labelInputPair = this.inputSearches.filter(
+        (element) =>
+          element.nativeElement.id === 'labelSearchActivities' ||
+          element.nativeElement.id === 'inputSearchActivities'
+      );
     } else {
-      labelForInputSearch = this.labelSearchAnimals.nativeElement;
-      inputSearch = this.inputSearchAnimals.nativeElement;
+      labelInputPair = this.inputSearches.filter(
+        (element) =>
+          element.nativeElement.id === 'labelSearchAnimals' ||
+          element.nativeElement.id === 'inputSearchAnimals'
+      );
     }
 
-    [labelForInputSearch, inputSearch].forEach((element) => {
-      this.renderer.listen(element, 'mouseenter', () => {
-        inputSearch.focus();
+    labelInputPair.forEach((element) => {
+      const [, input] = labelInputPair;
+
+      this.renderer.listen(element?.nativeElement, 'mouseenter', () => {
+        input?.nativeElement.focus();
       });
 
-      this.renderer.listen(element, 'mouseleave', () => {
-        inputSearch.blur();
+      this.renderer.listen(element?.nativeElement, 'mouseleave', () => {
+        input?.nativeElement.blur();
       });
     });
   }
@@ -133,8 +134,8 @@ export class ImageGridComponent implements OnInit, AfterViewInit {
           images[this.activeTab].push(image);
         });
 
-        this.images = images;
-        this.filterImages();
+        this.categoryImages = images;
+        this.filterImages(this.activeTab);
       },
       (error) => {
         console.error(`Error fetching images: ${error}`);
@@ -144,41 +145,38 @@ export class ImageGridComponent implements OnInit, AfterViewInit {
 
   changeTab(category: string): void {
     this.activeTab = category;
-    this.filterImages();
+    this.filterImages(category);
 
-    if (this.images[this.activeTab].length === 0) {
-      this.fetchImages();
-    }
+    if (this.categoryImages[category].length === 0) this.fetchImages();
 
-    setTimeout(() => {
-      this.setupFocusEvents(category);
-    }, 0);
+    setTimeout(() => this.setupFocusEvents(category), 0);
   }
 
-  closeTab(tab: string): void {
-    const tabKeys = Object.keys(this.images);
+  closeTab(category: string): void {
+    const tabKeys = Object.keys(this.categoryImages);
     if (tabKeys.length > 1) {
-      delete this.images[tab];
-      this.searchTerms[tab] = '';
-      this.filterImages();
+      delete this.categoryImages[category];
+      this.searchTerms[category] = '';
+      this.filterImages(category);
     }
   }
 
-  filterImages(category?: string): void {
-    const searchTerm =
-      this.searchTerms[category || this.activeTab].toLowerCase();
+  filterImages(category?: string): any {
+    category = category || this.activeTab;
 
-    if (searchTerm.trim().length < 1) {
-      this.filteredImages[this.activeTab] =
-        this.images[category || this.activeTab];
-    } else {
-      this.filteredImages[category || this.activeTab] = this.images[
-        category || this.activeTab
-      ]?.filter((image) => {
-        const title = image.title.toLowerCase();
-        return title === searchTerm || title.split(' ').includes(searchTerm);
-      });
+    const searchTerm = this.searchTerms[category].toLowerCase();
+
+    if (searchTerm === '') {
+      return (this.filteredImages[category] = this.categoryImages[category]);
     }
+
+    this.filteredImages[category] = this.categoryImages[category]?.filter(
+      (image) => {
+        // Some of the titles from the API have spaces at the end
+        const title = image.title.toLowerCase().trim();
+        return title === searchTerm || title.split(' ').includes(searchTerm);
+      }
+    );
   }
 
   openImageDialog(image: any) {
