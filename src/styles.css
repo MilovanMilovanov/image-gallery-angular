@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+
+:root {
+  --color-title-seagreen: lightseagreen;
+  --color-lightblue: lightblue;
+  --color-cloud-gray: #f5f5f5;
+  --color-white: white;
+  --color-dark-gray: darkgray;
+  --color-darker-gray: #e6e4e4;
+  --color-box-shadow: #c7c7c7;
+  --color-text: #555;
+  --color-bg-image-dialog: rgba(0, 0, 0, 0.5);
+}
