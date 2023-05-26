@@ -1,32 +1,27 @@
-# image-gallery-angular
+# ImageGallery
 
-This is my first project with Angular!
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.2.
 
-I followed the requirements below:
+## Development server
 
-Your task is to create an application that lists images. The data can either come from local assets/data or
-from consuming a real API such as Unsplash or other free image APIs). This is up to your preference.
-Requirements
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-• This is a tab-based application. It needs to have 3 tabs (3 different image categories per your choice).
+## Code scaffolding
 
-Every tab consist of the same UI:
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-• It must contain a grid with tiles that displays the images. It should display 30 images in total.
+## Build
 
-• Each tile in the grid should have a thumbnail and a title.
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-• Clicking on an asset should popup a dialog or just enlarge it to fill the current window.
+## Running unit tests
 
-• Be able to close a tab unless it’s the last one.
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-• The user should be able to filter the images by title or a keyword contained in the title.
+## Running end-to-end tests
 
-• The state of each tab should be preserved, so that the user can switch between tabs without
-losing its state.
-Please use Angular for the implementation. You should not use any existing component libraries such as Material UI.
+Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
+## Further help
 
-
-
-
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.

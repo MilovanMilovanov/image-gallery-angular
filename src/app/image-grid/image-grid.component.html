@@ -1,0 +1,125 @@
+<main>
+  <h1 class="app-title">image gallery</h1>
+
+  <section class="tab-container">
+    <div
+      class="tab"
+      [class.active]="activeTab === 'animals'"
+      (click)="changeTab('animals')"
+    >
+      <span class="tab-category"> Animals </span>
+      <button class="tab-close-button" (click)="closeTab('animals')">x</button>
+    </div>
+    <div
+      class="tab"
+      [class.active]="activeTab === 'nature'"
+      (click)="changeTab('nature')"
+    >
+      <span class="tab-category"> Nature </span>
+      <button class="tab-close-button" (click)="closeTab('nature')">x</button>
+    </div>
+    <div
+      class="tab"
+      [class.active]="activeTab === 'activities'"
+      (click)="changeTab('activities')"
+    >
+      <span class="tab-category"> Activities </span>
+    </div>
+  </section>
+
+  <ng-container [ngSwitch]="activeTab">
+    <section class="grid-container" *ngSwitchCase="'animals'">
+      <div class="search-container">
+        <label for="animals-filter" #labelSearchAnimals
+          >{{ categoryNames[activeTab] }}
+        </label>
+        <input
+          type="text"
+          id="animals-filter"
+          [(ngModel)]="searchTerms['animals']"
+          placeholder="{{ placeholderText }}"
+          (input)="filterImages('animals')"
+          #inputSearchAnimals
+        />
+      </div>
+      <figure
+        *ngFor="let image of filteredImages['animals']"
+        class="grid-item"
+        (click)="openImageDialog(image)"
+      >
+        <img [src]="image.thumbnailUrl" [alt]="image.title" />
+
+        <figcaption class="image-info">
+          <span>
+            {{ image.title }}
+          </span>
+        </figcaption>
+      </figure>
+    </section>
+
+    <div class="grid-container" *ngSwitchCase="'nature'">
+      <div class="search-container">
+        <label for="nature-filter" #labelSearchNature
+          >{{ categoryNames[activeTab] }}
+        </label>
+        <input
+          type="text"
+          id="nature-filter"
+          [(ngModel)]="searchTerms['nature']"
+          placeholder="{{ placeholderText }}"
+          (input)="filterImages('nature')"
+          #inputSearchNature
+        />
+      </div>
+      <figure
+        *ngFor="let image of filteredImages['nature']"
+        class="grid-item"
+        (click)="openImageDialog(image)"
+      >
+        <img [src]="image.thumbnailUrl" [alt]="image.title" />
+        <figcaption class="image-info">
+          <span>
+            {{ image.title }}
+          </span>
+        </figcaption>
+      </figure>
+    </div>
+
+    <div class="grid-container" *ngSwitchCase="'activities'">
+      <div class="search-container">
+        <label for="activities-filter" #labelSearchActivities>{{
+          categoryNames[activeTab]
+        }}</label>
+        <input
+          type="text"
+          id="activities-filter"
+          [(ngModel)]="searchTerms['activities']"
+          placeholder="{{ placeholderText }}"
+          (input)="filterImages('activities')"
+          #inputSearchActivities
+        />
+      </div>
+      <figure
+        *ngFor="let image of filteredImages['activities']"
+        class="grid-item"
+        (click)="openImageDialog(image)"
+      >
+        <img [src]="image.thumbnailUrl" [alt]="image.title" />
+        <figcaption class="image-info">
+          <span>
+            {{ image.title }}
+          </span>
+        </figcaption>
+      </figure>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="imageDialogOpen">
+    <figure class="image-dialog">
+      <img [src]="selectedImage.largeUrl" [alt]="selectedImage.title" />
+      <button class="dialog-close-button" (click)="closeImageDialog()">
+        Close
+      </button>
+    </figure>
+  </ng-container>
+</main>
