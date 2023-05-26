@@ -1,6 +1,6 @@
 # ImageGallery
 
-This is my first porject using Angular! :)
+This is my first project using Angular! :)
 
 1.For completion, I have ensured that the following requirements have been met:
 
