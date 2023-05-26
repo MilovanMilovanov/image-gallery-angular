@@ -1,27 +1,16 @@
 # ImageGallery
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.2.
+This is my first porject using Angular! :)
 
-## Development server
+For completion, I have ensured that the following requirements have been met:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+The app displays a grid of images grouped into categories (animals, nature, activities).
+The images are fetched from the Pexels API and displayed in the grid.
+Each image is accompanied by its title.
+The user can switch between image categories using tabs.
+The user can filter images within each category by typing in a search input.
+The search filters images based on matching titles or keywords.
+Clicking on an image opens a dialog displaying the enlarged image.
+The user can close the image dialog.
+The app has a responsive layout with appropriate styles for different screen sizes.
+The app uses CSS classes and Angular directives to handle events and apply styles dynamically.
