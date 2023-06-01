@@ -1,5 +1,12 @@
-<main>
+<main [ngClass]="currentTheme">
   <h1 class="app-title">image gallery</h1>
+
+  <div class="theme-switch">
+    <label class="switch">
+      <input type="checkbox" id="theme-switch" (click)="changeTheme($event)" />
+      <span class="slider round"></span>
+    </label>
+  </div>
 
   <section class="tab-container">
     <div
@@ -30,20 +37,17 @@
   <ng-container [ngSwitch]="activeTab">
     <section class="grid-container" *ngSwitchCase="'animals'">
       <div class="search-container">
-        <label
-          id="labelSearchAnimals"
-          for="inputSearchAnimals"
-          #labelsAndInputsForSearch
+        <label id="labelSearchAnimals" #labelsAndInputsForSearch
           >{{ categoryNames[activeTab] }}
+          <input
+            type="text"
+            id="inputSearchAnimals"
+            [(ngModel)]="searchTerms['animals']"
+            placeholder="{{ placeholderText }}"
+            (input)="filterImages('animals')"
+            #labelsAndInputsForSearch
+          />
         </label>
-        <input
-          type="text"
-          id="inputSearchAnimals"
-          [(ngModel)]="searchTerms['animals']"
-          placeholder="{{ placeholderText }}"
-          (input)="filterImages('animals')"
-          #labelsAndInputsForSearch
-        />
       </div>
       <figure
         *ngFor="let image of filteredImages['animals']"
@@ -62,20 +66,17 @@
 
     <div class="grid-container" *ngSwitchCase="'nature'">
       <div class="search-container">
-        <label
-          id="labelSearchNature"
-          for="inputSearchNature"
-          #labelsAndInputsForSearch
+        <label id="labelSearchNature" #labelsAndInputsForSearch
           >{{ categoryNames[activeTab] }}
+          <input
+            type="text"
+            id="inputSearchNature"
+            [(ngModel)]="searchTerms['nature']"
+            placeholder="{{ placeholderText }}"
+            (input)="filterImages('nature')"
+            #labelsAndInputsForSearch
+          />
         </label>
-        <input
-          type="text"
-          id="inputSearchNature"
-          [(ngModel)]="searchTerms['nature']"
-          placeholder="{{ placeholderText }}"
-          (input)="filterImages('nature')"
-          #labelsAndInputsForSearch
-        />
       </div>
       <figure
         *ngFor="let image of filteredImages['nature']"
@@ -93,20 +94,17 @@
 
     <div class="grid-container" *ngSwitchCase="'activities'">
       <div class="search-container">
-        <label
-          id="labelSearchActivities"
-          for="inputSearchActivities"
-          #labelsAndInputsForSearch
-          >{{ categoryNames[activeTab] }}</label
-        >
-        <input
-          type="text"
-          id="inputSearchActivities"
-          [(ngModel)]="searchTerms['activities']"
-          placeholder="{{ placeholderText }}"
-          (input)="filterImages('activities')"
-          #labelsAndInputsForSearch
-        />
+        <label id="labelSearchActivities" #labelsAndInputsForSearch
+          >{{ categoryNames[activeTab] }}
+          <input
+            type="text"
+            id="inputSearchActivities"
+            [(ngModel)]="searchTerms['activities']"
+            placeholder="{{ placeholderText }}"
+            (input)="filterImages('activities')"
+            #labelsAndInputsForSearch
+          />
+        </label>
       </div>
       <figure
         *ngFor="let image of filteredImages['activities']"
@@ -124,11 +122,13 @@
   </ng-container>
 
   <ng-container *ngIf="imageDialogOpen">
-    <figure class="image-dialog">
-      <img [src]="selectedImage.largeUrl" [alt]="selectedImage.title" />
+    <section class="image-container">
+      <figure class="image-dialog">
+        <img [src]="selectedImage.largeUrl" [alt]="selectedImage.title" />
+      </figure>
       <button class="dialog-close-button" (click)="closeImageDialog()">
         Close
       </button>
-    </figure>
+    </section>
   </ng-container>
 </main>
