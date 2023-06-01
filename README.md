@@ -2,7 +2,9 @@
 
 This is my first project using Angular! :)
 
-1.For completion, I have ensured that the following requirements have been met:
+Reusability could definitelly be imporoved.
+
+For completion, I have ensured that the following requirements have been met:
 
 2.The app displays a grid of images grouped into categories (animals, nature, activities).
 
@@ -19,6 +21,7 @@ This is my first project using Angular! :)
 8.The user can close the image dialog.
 
 9.The app has a responsive layout with appropriate styles for different screen sizes.
+without libraries, CSS only.
 
 10. The app uses CSS classes and Angular directives to handle events and apply styles dynamically.
 
