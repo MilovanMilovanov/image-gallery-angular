@@ -26,7 +26,7 @@ interface CategoryImages {
 @Component({
   selector: 'app-image-grid',
   templateUrl: './image-grid.component.html',
-  styleUrls: ['./image-grid.component.css'],
+  styleUrls: ['./light-theme.css'],
 })
 export class ImageGridComponent implements OnInit, AfterViewInit {
   categoryImages: CategoryImages = {
@@ -49,6 +49,7 @@ export class ImageGridComponent implements OnInit, AfterViewInit {
     activities: 'Filter activity images by:',
   };
 
+  currentTheme: string = 'light-theme';
   activeTab: string = 'animals';
   searchTerm: string = '';
   placeholderText: string = 'title or keyword search';
@@ -66,6 +67,16 @@ export class ImageGridComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.setupFocusEvents();
+  }
+
+  changeTheme(event: Event): void {
+    event.stopPropagation();
+
+    if (this.currentTheme === 'light-theme') {
+      this.currentTheme = 'dark-theme';
+    } else {
+      this.currentTheme = 'light-theme';
+    }
   }
 
   setupFocusEvents(category?: string): void {
@@ -172,6 +183,7 @@ export class ImageGridComponent implements OnInit, AfterViewInit {
 
     this.filteredImages[category] = this.categoryImages[category]?.filter(
       (image) => {
+        // Some of the titles from the API have spaces at the end
         const title = image.title.toLowerCase().trim();
         return title === searchTerm || title.split(' ').includes(searchTerm);
       }
