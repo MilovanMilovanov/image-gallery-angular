@@ -2,7 +2,7 @@
 
 This is my first project using Angular! :)
 
-Reusability could definitelly be imporoved.
+Reusability could definitelly be improved.
 
 For completion, I have ensured that the following requirements have been met:
 
