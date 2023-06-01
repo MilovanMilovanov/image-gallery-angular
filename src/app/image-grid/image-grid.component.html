@@ -37,17 +37,20 @@
   <ng-container [ngSwitch]="activeTab">
     <section class="grid-container" *ngSwitchCase="'animals'">
       <div class="search-container">
-        <label id="labelSearchAnimals" #labelsAndInputsForSearch
+        <label
+          id="labelSearchAnimals"
+          for="inputSearchAnimals"
+          #labelsAndInputsForSearch
           >{{ categoryNames[activeTab] }}
-          <input
-            type="text"
-            id="inputSearchAnimals"
-            [(ngModel)]="searchTerms['animals']"
-            placeholder="{{ placeholderText }}"
-            (input)="filterImages('animals')"
-            #labelsAndInputsForSearch
-          />
         </label>
+        <input
+          type="text"
+          id="inputSearchAnimals"
+          [(ngModel)]="searchTerms['animals']"
+          placeholder="{{ placeholderText }}"
+          (input)="filterImages('animals')"
+          #labelsAndInputsForSearch
+        />
       </div>
       <figure
         *ngFor="let image of filteredImages['animals']"
@@ -66,17 +69,20 @@
 
     <div class="grid-container" *ngSwitchCase="'nature'">
       <div class="search-container">
-        <label id="labelSearchNature" #labelsAndInputsForSearch
+        <label
+          id="labelSearchNature"
+          for="inputSearchNature"
+          #labelsAndInputsForSearch
           >{{ categoryNames[activeTab] }}
-          <input
-            type="text"
-            id="inputSearchNature"
-            [(ngModel)]="searchTerms['nature']"
-            placeholder="{{ placeholderText }}"
-            (input)="filterImages('nature')"
-            #labelsAndInputsForSearch
-          />
         </label>
+        <input
+          type="text"
+          id="inputSearchNature"
+          [(ngModel)]="searchTerms['nature']"
+          placeholder="{{ placeholderText }}"
+          (input)="filterImages('nature')"
+          #labelsAndInputsForSearch
+        />
       </div>
       <figure
         *ngFor="let image of filteredImages['nature']"
@@ -94,17 +100,20 @@
 
     <div class="grid-container" *ngSwitchCase="'activities'">
       <div class="search-container">
-        <label id="labelSearchActivities" #labelsAndInputsForSearch
-          >{{ categoryNames[activeTab] }}
-          <input
-            type="text"
-            id="inputSearchActivities"
-            [(ngModel)]="searchTerms['activities']"
-            placeholder="{{ placeholderText }}"
-            (input)="filterImages('activities')"
-            #labelsAndInputsForSearch
-          />
-        </label>
+        <label
+          id="labelSearchActivities"
+          for="inputSearchActivities"
+          #labelsAndInputsForSearch
+          >{{ categoryNames[activeTab] }}</label
+        >
+        <input
+          type="text"
+          id="inputSearchActivities"
+          [(ngModel)]="searchTerms['activities']"
+          placeholder="{{ placeholderText }}"
+          (input)="filterImages('activities')"
+          #labelsAndInputsForSearch
+        />
       </div>
       <figure
         *ngFor="let image of filteredImages['activities']"
